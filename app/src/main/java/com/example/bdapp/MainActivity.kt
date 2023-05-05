@@ -10,6 +10,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 
 import androidx.appcompat.widget.Toolbar
 import android.view.MenuItem
+import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
@@ -17,6 +19,19 @@ import com.google.android.material.navigation.NavigationView
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    var txtUsuario:EditText?=null
+    var txtApellidoP:EditText?=null
+    var txtApellidoM:EditText?=null
+    var txtEdad: EditText?=null
+    var txtTelefono:EditText?=null
+    var txtDireccion:EditText?=null
+
+
+
+
+
+
+
     private lateinit var drawer: DrawerLayout
     private lateinit var toggle: ActionBarDrawerToggle
 
@@ -24,6 +39,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        txtUsuario = findViewById(R.id.txtUsuario)
+        txtApellidoP = findViewById(R.id.txtApellidoP)
+        txtApellidoM = findViewById(R.id.txtApellidoM)
+        txtEdad = findViewById(R.id.txtEdad)
+        txtTelefono = findViewById(R.id.txtTelefono)
+        txtDireccion = findViewById(R.id. txtDireccion)
+
+
+
+
 
         val toolbar: Toolbar = findViewById(R.id.toolbar_main)
         setSupportActionBar(toolbar)
@@ -44,6 +70,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val navigationView: NavigationView = findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
+    }
+    fun insertar(view: View){
+        var con=SQLite(this,"Vales",null,1)
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
