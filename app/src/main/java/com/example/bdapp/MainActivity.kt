@@ -1,5 +1,6 @@
 package com.example.bdapp
 
+import android.content.ContentValues
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -20,6 +21,7 @@ import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     var txtUsuario:EditText?=null
+    var txtMembrecia:EditText?=null
     var txtApellidoP:EditText?=null
     var txtApellidoM:EditText?=null
     var txtEdad: EditText?=null
@@ -40,6 +42,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+        txtMembrecia = findViewById(R.id.txtMembrecia)
         txtUsuario = findViewById(R.id.txtUsuario)
         txtApellidoP = findViewById(R.id.txtApellidoP)
         txtApellidoM = findViewById(R.id.txtApellidoM)
@@ -73,7 +77,39 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
     fun insertar(view: View){
         var con=SQLite(this,"Vales",null,1)
+        var baseDatos = con.writableDatabase
 
+        var membrecia = txtMembrecia?.text.toString()
+        var nombre = txtUsuario?.text.toString()
+        var apellidoP = txtApellidoP?.text.toString()
+        var apellidoM = txtApellidoM?.text.toString()
+        var edad = txtEdad?.text.toString()
+        var Telefono = txtTelefono?.text.toString()
+        var Direccion = txtDireccion?.text.toString()
+        if(membrecia.isEmpty() == false && nombre.isEmpty() == false && apellidoP.isEmpty() == false && apellidoM.isEmpty() == false &&
+                edad.isEmpty() == false && Telefono.isEmpty() == false && Direccion.isEmpty() == false){
+                var registro = ContentValues()
+                registro.put("membrecia",membrecia)
+                registro.put("nombre", nombre)
+                registro.put("apellidoP", apellidoP)
+                registro.put("apellidoM", apellidoM)
+                registro.put("edad", edad)
+                registro.put("Telefono", Telefono)
+                registro.put("Direccion", Direccion)
+
+                baseDatos.insert("usuarios",null,registro)
+
+                txtMembrecia?.setText("");
+                txtUsuario?.setText("");
+                txtApellidoP?.setText("");
+                txtApellidoM?.setText("");
+                txtEdad?.setText("");
+                txtTelefono?.setText("");
+                txtDireccion?.setText("");
+            Toast.makeText(this,"Se ha insertado exitosamente",Toast.LENGTH_LONG).show()
+            }else {
+                Toast.makeText(this,"Los campos deben estar llenos para su registro",Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
